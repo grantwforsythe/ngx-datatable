@@ -40,6 +40,10 @@ jobs:
       - name: Test
         run: npm run ci
 
+      - name: Validate PR commits with commitlint
+        if: github.event_name == 'pull_request'
+        run: npx commitlint --from ${{ github.event.pull_request.base.sha }} --to ${{ github.event.pull_request.head.sha }} --verbose
+
       - name: Build Docs
         run: npm run build-docs
 
